@@ -1,4 +1,4 @@
-package com.projeto.motivosparabeber.api;
+package com.projeto.motivosparabeber.api.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
@@ -99,5 +99,18 @@ public class Motivo {
 
     public void setNivelBebedeira(Integer nivelBebedeira) {
         this.nivelBebedeira = nivelBebedeira;
+    }
+
+    @Override
+    public String toString() {
+        return "\nMotivo{" +
+                "id=" + id +
+                "\ndataEfemeride=" + dataEfemeride +
+                "\nano=" + ano +
+                "\ntitulo='" + titulo + '\'' +
+                "\ndescricao='" + descricao + '\'' +
+                "\ncategoria=" + categoria +
+                "\nnivelBebedeira=" + nivelBebedeira +
+                "}\n";
     }
 }

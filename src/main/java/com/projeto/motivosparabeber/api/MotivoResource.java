@@ -1,5 +1,6 @@
 package com.projeto.motivosparabeber.api;
 
+import com.projeto.motivosparabeber.api.model.Motivo;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;

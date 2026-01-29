@@ -1,17 +1,19 @@
 package com.projeto.motivosparabeber.test;
 
-import com.projeto.motivosparabeber.api.Motivo;
+import com.projeto.motivosparabeber.api.model.Motivo;
 import com.projeto.motivosparabeber.api.MotivoResource;
 import com.projeto.motivosparabeber.api.config.JaxRsConfig;
+import com.projeto.motivosparabeber.api.repository.MotivoRepository;
+import com.projeto.motivosparabeber.api.util.Categoria;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 
 import java.io.IOException;
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 public class Test {
@@ -30,16 +32,15 @@ public class Test {
 
         EntityManager em = emf.createEntityManager();
 
-//        try {
-//            EntityTransaction transaction = em.getTransaction();
-//            transaction.begin();
-//            em.persist(motivos.get(0));
-//            transaction.commit();
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
+        MotivoRepository repository = new MotivoRepository(emf);
 
-        System.out.println(em.find(Motivo.class, 2).getTitulo());
+        repository.deletarPorId(Long.parseLong("3"));
+        repository.deletarPorId(Long.parseLong("4"));
+
+        List<Motivo> motivosEncontrados = repository.listar();
+        System.out.println("\n-----------LISTA DE MOTIVOS------------");
+        motivosEncontrados.stream().forEach(System.out::println);
+
 
         System.out.println("Servidor JAX-RS rodando em " + BASE_URI);
         System.out.println("Pressione Ctrl+C para encerrar...");

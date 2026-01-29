@@ -1,6 +1,6 @@
 package com.projeto.motivosparabeber.test;
 
-import com.projeto.motivosparabeber.api.Motivo;
+import com.projeto.motivosparabeber.api.model.Motivo;
 import com.projeto.motivosparabeber.api.util.Categoria;
 
 import java.time.LocalDate;
