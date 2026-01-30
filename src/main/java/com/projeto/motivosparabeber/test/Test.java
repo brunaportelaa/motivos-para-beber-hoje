@@ -16,8 +16,6 @@ public class Test {
 
     public static void main(String[] args) throws IOException {
 
-        List<Motivo> motivos = MotivosFactory.criarMotivos29DeJaneiro();
-
         JaxRsConfig jaxConfig = new JaxRsConfig();
         HttpServer server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), jaxConfig);
 

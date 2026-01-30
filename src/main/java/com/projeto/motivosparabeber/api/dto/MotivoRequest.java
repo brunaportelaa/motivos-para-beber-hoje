@@ -1,60 +1,44 @@
-package com.projeto.motivosparabeber.api.model;
+package com.projeto.motivosparabeber.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "motivos")
-public class Motivo {
+public class MotivoRequest {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "data")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @NotNull
     private LocalDate dataEfemeride;
 
     private Integer ano;
 
-    @Column(nullable = false, length = 100)
+    @NotBlank
+    @Size(min = 0, max = 100)
     private String titulo;
 
-    @Column(nullable = false, length = 255)
+    @NotBlank
+    @Size(min = 0, max = 255)
     private String descricao;
 
-    @Column(nullable = false)
     @Min(1)
     @Max(4)
+    @NotNull
     private Integer categoria;
 
-    @Column(name = "nivel_bebedeira")
-    @Min(1)
-    @Max(5)
+    @NotNull
     private Integer nivelBebedeira;
 
-    public Motivo(LocalDate dataEfemeride, Integer ano, String titulo, String descricao, Integer categoria, Integer nivelBebedeira) {
+    public MotivoRequest(LocalDate dataEfemeride, Integer ano, String titulo, String descricao, Integer categoria, Integer nivelBebedeira) {
         this.dataEfemeride = dataEfemeride;
         this.ano = ano;
         this.titulo = titulo;
         this.descricao = descricao;
         this.categoria = categoria;
         this.nivelBebedeira = nivelBebedeira;
-    }
-
-    public Motivo() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public LocalDate getDataEfemeride() {
@@ -103,18 +87,5 @@ public class Motivo {
 
     public void setNivelBebedeira(Integer nivelBebedeira) {
         this.nivelBebedeira = nivelBebedeira;
-    }
-
-    @Override
-    public String toString() {
-        return "\nMotivo{" +
-                "id=" + id +
-                "\ndataEfemeride=" + dataEfemeride +
-                "\nano=" + ano +
-                "\ntitulo='" + titulo + '\'' +
-                "\ndescricao='" + descricao + '\'' +
-                "\ncategoria=" + categoria +
-                "\nnivelBebedeira=" + nivelBebedeira +
-                "}\n";
     }
 }

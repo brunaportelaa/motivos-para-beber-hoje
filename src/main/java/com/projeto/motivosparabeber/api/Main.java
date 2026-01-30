@@ -1,16 +1,11 @@
 package com.projeto.motivosparabeber.api;
 
 import com.projeto.motivosparabeber.api.config.JaxRsConfig;
-import com.projeto.motivosparabeber.test.MotivosFactory;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.List;
 
 
 public class Main {
