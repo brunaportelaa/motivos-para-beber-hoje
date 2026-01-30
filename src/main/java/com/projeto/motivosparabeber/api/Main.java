@@ -19,8 +19,6 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("motivos_para_beber");
-
         JaxRsConfig jaxConfig = new JaxRsConfig();
         HttpServer server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), jaxConfig);
 
@@ -29,8 +27,6 @@ public class Main {
 
         System.in.read();
         server.shutdownNow();
-        emf.close();
-
 
 
     }

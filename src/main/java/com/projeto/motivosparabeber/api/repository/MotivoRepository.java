@@ -1,6 +1,8 @@
 package com.projeto.motivosparabeber.api.repository;
 
 import com.projeto.motivosparabeber.api.model.Motivo;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -8,10 +10,12 @@ import jakarta.persistence.TypedQuery;
 
 import java.util.List;
 
+@Singleton
 public class MotivoRepository {
 
     private EntityManagerFactory emf;
 
+    @Inject
     public MotivoRepository(EntityManagerFactory emf) {
         this.emf = emf;
     }

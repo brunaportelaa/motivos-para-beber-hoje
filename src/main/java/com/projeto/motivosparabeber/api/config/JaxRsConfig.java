@@ -6,6 +6,8 @@ public class JaxRsConfig extends ResourceConfig {
 
     public JaxRsConfig() {
         packages("com.projeto.motivosparabeber.api");
+        register(new DependencyBinder());
+
         System.out.println("Configurações JAX-RS carregadas");
     }
 }
