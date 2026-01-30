@@ -1,5 +1,6 @@
 package com.projeto.motivosparabeber.api.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -15,6 +16,7 @@ public class Motivo {
     private Long id;
 
     @Column(name = "data")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dataEfemeride;
 
     private Integer ano;

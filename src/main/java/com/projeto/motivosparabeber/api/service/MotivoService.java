@@ -8,6 +8,7 @@ import jakarta.inject.Singleton;
 import jakarta.persistence.EntityManagerFactory;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 @Singleton
 public class MotivoService {
@@ -35,6 +36,12 @@ public class MotivoService {
 
     public void criar(Motivo motivo){
         rep.criar(motivo);
+    };
+
+    public void criar(List<Motivo> motivos){
+        for (Motivo motivo : motivos) {
+            criar(motivo);
+        }
     };
 
     public void deletarPorId(Long id){
