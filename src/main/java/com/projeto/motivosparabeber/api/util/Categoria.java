@@ -4,7 +4,8 @@ public enum Categoria {
     ANIVERSARIO(1),
     EVENTO_HISTORICO(2),
     RELEVANTE(3),
-    INUTIL(4);
+    INUTIL(4),
+    DATA_COMEMORATIVA(5);
 
     private int categoria;
 
