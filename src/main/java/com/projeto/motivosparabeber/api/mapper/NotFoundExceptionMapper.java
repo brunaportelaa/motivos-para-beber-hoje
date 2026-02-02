@@ -1,6 +1,7 @@
 package com.projeto.motivosparabeber.api.mapper;
 
 import com.projeto.motivosparabeber.api.exception.NotFoundException;
+import com.projeto.motivosparabeber.api.dto.ErrorResponse;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
@@ -10,6 +11,9 @@ public class NotFoundExceptionMapper implements ExceptionMapper<NotFoundExceptio
 
     @Override
     public Response toResponse(NotFoundException e) {
-        return Response.status(Response.Status.NOT_FOUND).build();
+        return Response
+                .status(Response.Status.NOT_FOUND)
+                .entity(new ErrorResponse("Recurso não encontrado.", e.getMessage()))
+                .build();
     }
 }

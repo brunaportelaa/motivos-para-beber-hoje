@@ -26,7 +26,6 @@ public class MotivoService {
 
     public Motivo encontrarPorId(Long id) {
         Motivo motivoEncontrado = rep.encontrarPorId(id);
-
         if (motivoEncontrado == null) {
             throw new NotFoundException("Não encontramos o seu motivo para beber hoje.");
         }
