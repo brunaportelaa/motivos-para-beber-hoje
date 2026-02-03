@@ -1,11 +1,15 @@
 package com.projeto.motivosparabeber.api.service;
 
+import com.projeto.motivosparabeber.api.dto.MotivoRequest;
 import com.projeto.motivosparabeber.api.exception.NotFoundException;
+import com.projeto.motivosparabeber.api.mapper.MotivoMapper;
 import com.projeto.motivosparabeber.api.model.Motivo;
 import com.projeto.motivosparabeber.api.repository.MotivoRepository;
+import com.projeto.motivosparabeber.api.validation.MotivoValidator;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -14,6 +18,7 @@ import java.util.function.Consumer;
 public class MotivoService {
 
     private final MotivoRepository rep;
+    private final MotivoMapper mapper = new MotivoMapper();
 
     @Inject
     public MotivoService(MotivoRepository rep) {
@@ -33,12 +38,14 @@ public class MotivoService {
         return motivoEncontrado;
     }
 
-    public void criar(Motivo motivo){
+    public void criar(@Valid MotivoRequest motivoRequest){
+        Motivo motivo = mapper.toEntity(motivoRequest);
+        MotivoValidator.validarNovoMotivo(motivo);
         rep.criar(motivo);
     };
 
-    public void criar(List<Motivo> motivos){
-        for (Motivo motivo : motivos) {
+    public void criar(List<MotivoRequest> motivos){
+        for (MotivoRequest motivo : motivos) {
             criar(motivo);
         }
     };

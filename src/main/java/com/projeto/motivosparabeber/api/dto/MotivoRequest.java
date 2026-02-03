@@ -8,12 +8,15 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
+import java.time.Year;
 
 public class MotivoRequest {
 
     @NotNull
     private LocalDate dataEfemeride;
 
+    @Min(Year.MIN_VALUE)
+    @Max(Year.MAX_VALUE)
     private Integer ano;
 
     @NotBlank
@@ -21,7 +24,7 @@ public class MotivoRequest {
     private String titulo;
 
     @NotBlank
-    @Size(min = 0, max = 255)
+    @Size(min = 0, max = 275)
     private String descricao;
 
     @Min(1)
@@ -39,6 +42,9 @@ public class MotivoRequest {
         this.descricao = descricao;
         this.categoria = categoria;
         this.nivelBebedeira = nivelBebedeira;
+    }
+
+    public MotivoRequest() {
     }
 
     public LocalDate getDataEfemeride() {

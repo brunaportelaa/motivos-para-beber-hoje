@@ -1,5 +1,8 @@
 package com.projeto.motivosparabeber.api;
 
+import com.projeto.motivosparabeber.api.dto.MotivoRequest;
+import com.projeto.motivosparabeber.api.dto.MotivoResponse;
+import com.projeto.motivosparabeber.api.mapper.MotivoMapper;
 import com.projeto.motivosparabeber.api.model.Motivo;
 import com.projeto.motivosparabeber.api.service.MotivoService;
 import jakarta.inject.Inject;
@@ -8,6 +11,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/motivos")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -16,15 +20,24 @@ public class MotivoResource {
 
     private final MotivoService service;
 
+    private final MotivoMapper mapper;
+
     @Inject
-    public MotivoResource(MotivoService service) {
+    public MotivoResource(MotivoService service, MotivoMapper mapper) {
         this.service = service;
+        this.mapper = mapper;
     }
 
     @GET
     public Response listar() {
-        List<Motivo> motivoList = service.listar();
-        return Response.ok(motivoList).build();
+        List<MotivoResponse> motivoList =
+                service.listar()
+                        .stream()
+                        .map(mapper::toResponse)
+                        .collect(Collectors.toList());
+        return Response
+                .ok(motivoList)
+                .build();
     }
 
     @GET
@@ -35,7 +48,7 @@ public class MotivoResource {
     }
 
     @POST
-    public Response criar(List<Motivo> motivos) {
+    public Response criar(List<MotivoRequest> motivos) {
         service.criar(motivos);
         return Response.noContent().build();
     }

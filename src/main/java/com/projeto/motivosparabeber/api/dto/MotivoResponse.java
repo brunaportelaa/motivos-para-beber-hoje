@@ -24,6 +24,9 @@ public class MotivoResponse {
         this.categoria = categoria;
     }
 
+    public MotivoResponse() {
+    }
+
     public Long getId() {
         return id;
     }

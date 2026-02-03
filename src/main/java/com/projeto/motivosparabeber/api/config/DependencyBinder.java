@@ -1,5 +1,6 @@
 package com.projeto.motivosparabeber.api.config;
 
+import com.projeto.motivosparabeber.api.mapper.MotivoMapper;
 import com.projeto.motivosparabeber.api.repository.MotivoRepository;
 import com.projeto.motivosparabeber.api.service.MotivoService;
 import jakarta.inject.Singleton;
@@ -16,6 +17,10 @@ public class DependencyBinder extends AbstractBinder {
 
         bind(MotivoService.class)
                 .to(MotivoService.class)
+                .in(Singleton.class);
+
+        bind(MotivoMapper.class)
+                .to(MotivoMapper.class)
                 .in(Singleton.class);
 
         bind(MotivoRepository.class)

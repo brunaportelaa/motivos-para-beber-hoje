@@ -24,7 +24,7 @@ public class Motivo {
     @Column(nullable = false, length = 100)
     private String titulo;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false, length = 275)
     private String descricao;
 
     @Column(nullable = false)
