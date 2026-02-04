@@ -1,17 +1,11 @@
 package com.projeto.motivosparabeber.test;
 
-import com.projeto.motivosparabeber.api.model.Motivo;
 import com.projeto.motivosparabeber.api.config.JaxRsConfig;
-import com.projeto.motivosparabeber.api.repository.MotivoRepository;
-import com.projeto.motivosparabeber.api.service.MotivoService;
-import jakarta.persistence.Persistence;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 
 import java.io.IOException;
 import java.net.URI;
-import java.time.LocalDate;
-import java.util.List;
 
 public class Test {
 
@@ -21,8 +15,6 @@ public class Test {
 
         JaxRsConfig jaxConfig = new JaxRsConfig();
         HttpServer server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), jaxConfig);
-
-        MotivoService motivoService = new MotivoService(new MotivoRepository(Persistence.createEntityManagerFactory("motivos_para_beber")));
 
 
         System.out.println("Servidor JAX-RS rodando em " + BASE_URI);

@@ -7,8 +7,7 @@ import com.projeto.motivosparabeber.api.model.Motivo;
 import com.projeto.motivosparabeber.api.service.MotivoService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,13 +43,22 @@ public class MotivoResource {
     @Path("{id}")
     public Response encontrarPorId(@PathParam("id") Long id) {
         Motivo motivo = service.encontrarPorId(id);
-        return Response.ok(motivo).build();
+        return Response.ok(mapper.toResponse(motivo)).build();
     }
 
     @POST
-    public Response criar(List<MotivoRequest> motivos) {
-        service.criar(motivos);
-        return Response.noContent().build();
+    public Response criar(MotivoRequest motivoRequest, @Context UriInfo uriInfo) {
+        Motivo novoMotivo = service.criar(motivoRequest);
+        UriBuilder builder = uriInfo.getAbsolutePathBuilder();
+        builder.path(Long.toString(novoMotivo.getId()));
+        return Response.created(builder.build()).build();
+    }
+
+    @POST
+    @Path("/lote")
+    public Response criarEmLote(List<MotivoRequest> motivosRequests) {
+        service.criarEmLote(motivosRequests);
+        return Response.status(Response.Status.CREATED).build();
     }
 
     @DELETE

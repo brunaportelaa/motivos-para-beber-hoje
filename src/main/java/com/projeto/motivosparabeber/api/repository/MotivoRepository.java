@@ -37,16 +37,34 @@ public class MotivoRepository {
         }
     }
 
-    public void criar(Motivo motivo){
+    public Motivo criar(Motivo motivo){
         try (EntityManager em = emf.createEntityManager()) {
             EntityTransaction transaction = em.getTransaction();
             transaction.begin();
             em.persist(motivo);
             transaction.commit();
+            return motivo;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     };
+
+    public void criarVarios(List<Motivo> motivos) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+        try {
+            transaction.begin();
+            for (Motivo motivo : motivos) {
+                em.persist(motivo);
+            }
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            throw new RuntimeException(e);
+        }
+    }
 
     public void deletarPorId(Long id){
         try (EntityManager em = emf.createEntityManager()) {
@@ -59,4 +77,6 @@ public class MotivoRepository {
             throw new RuntimeException(e);
         }
     }
+
+
 }

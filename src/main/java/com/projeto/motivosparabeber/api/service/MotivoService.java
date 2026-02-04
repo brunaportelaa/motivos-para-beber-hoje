@@ -13,16 +13,18 @@ import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 @Singleton
 public class MotivoService {
 
     private final MotivoRepository rep;
-    private final MotivoMapper mapper = new MotivoMapper();
+    private final MotivoMapper mapper;
 
     @Inject
-    public MotivoService(MotivoRepository rep) {
+    public MotivoService(MotivoRepository rep, MotivoMapper mapper) {
         this.rep = rep;
+        this.mapper = mapper;
     }
 
     public List<Motivo> listar() {
@@ -38,20 +40,26 @@ public class MotivoService {
         return motivoEncontrado;
     }
 
-    public void criar(@Valid MotivoRequest motivoRequest){
+    public Motivo criar(@Valid MotivoRequest motivoRequest){
         Motivo motivo = mapper.toEntity(motivoRequest);
         MotivoValidator.validarNovoMotivo(motivo);
-        rep.criar(motivo);
+        return rep.criar(motivo);
     };
 
-    public void criar(List<MotivoRequest> motivos){
-        for (MotivoRequest motivo : motivos) {
-            criar(motivo);
-        }
-    };
+    public void criarEmLote(List<MotivoRequest> motivosRequests) {
+        List<Motivo> motivos = motivosRequests.stream()
+                .map(mapper::toEntity)
+                .collect(Collectors.toList());
+
+        motivos.forEach(MotivoValidator::validarNovoMotivo);
+        rep.criarVarios(motivos);
+    }
 
     public void deletarPorId(Long id){
         Motivo motivo = encontrarPorId(id);
         rep.deletarPorId(id);
+
     }
+
+
 }
