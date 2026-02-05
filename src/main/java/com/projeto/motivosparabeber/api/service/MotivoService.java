@@ -11,7 +11,9 @@ import jakarta.inject.Singleton;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.validation.Valid;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -40,6 +42,18 @@ public class MotivoService {
         return motivoEncontrado;
     }
 
+    public Motivo buscarMotivoAleatorioDeHoje() {
+        int dia = LocalDate.now().getDayOfMonth();
+        int mes = LocalDate.now().getMonthValue();
+        List<Motivo> motivosDeHoje = rep.listarPorData(dia, mes);
+        if (!motivosDeHoje.isEmpty()){
+            return motivosDeHoje.get(ThreadLocalRandom.current().nextInt(motivosDeHoje.size()));
+        } else {
+            throw new NotFoundException("Não há nenhum motivo para a data de hoje");
+        }
+
+    }
+
     public Motivo criar(@Valid MotivoRequest motivoRequest){
         Motivo motivo = mapper.toEntity(motivoRequest);
         MotivoValidator.validarNovoMotivo(motivo);
@@ -60,6 +74,7 @@ public class MotivoService {
         rep.deletarPorId(id);
 
     }
+
 
 
 }

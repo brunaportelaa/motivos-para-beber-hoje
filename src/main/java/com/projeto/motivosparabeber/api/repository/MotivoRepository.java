@@ -29,6 +29,21 @@ public class MotivoRepository {
          }
     }
 
+    public List<Motivo> listarPorData(int dia, int mes) {
+        try (EntityManager em = emf.createEntityManager()) {
+            TypedQuery<Motivo> query = em.createQuery(
+                    "SELECT m FROM Motivo m\n" +
+                    "WHERE DAY(m.dataEfemeride) = :dia\n" +
+                    "AND MONTH(m.dataEfemeride) = :mes\n", Motivo.class);
+
+            query.setParameter("dia", dia);
+            query.setParameter("mes", mes);
+            return query.getResultList();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public Motivo encontrarPorId(Long id) {
         try (EntityManager em = emf.createEntityManager()) {
             return em.find(Motivo.class, id);

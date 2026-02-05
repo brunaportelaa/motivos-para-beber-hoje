@@ -46,6 +46,13 @@ public class MotivoResource {
         return Response.ok(mapper.toResponse(motivo)).build();
     }
 
+    @GET
+    @Path("/aleatorio")
+    public Response buscarMotivoAleatorioDeHoje() {
+        Motivo motivoAleatorio = service.buscarMotivoAleatorioDeHoje();
+        return Response.ok(mapper.toResponse(motivoAleatorio)).build();
+    }
+
     @POST
     public Response criar(MotivoRequest motivoRequest, @Context UriInfo uriInfo) {
         Motivo novoMotivo = service.criar(motivoRequest);
