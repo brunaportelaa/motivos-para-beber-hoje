@@ -9,6 +9,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,7 +50,16 @@ public class MotivoResource {
     @GET
     @Path("/aleatorio")
     public Response buscarMotivoAleatorioDeHoje() {
-        Motivo motivoAleatorio = service.buscarMotivoAleatorioDeHoje();
+        int dia = LocalDate.now().getDayOfMonth();
+        int mes = LocalDate.now().getMonthValue();
+        Motivo motivoAleatorio = service.buscarMotivoAleatorioPorData(dia, mes);
+        return Response.ok(mapper.toResponse(motivoAleatorio)).build();
+    }
+
+    @GET
+    @Path("/{mes}/{dia}")
+    public Response buscarMotivoAleatorioPorData(@PathParam("dia") int dia, @PathParam("mes") int mes) {
+        Motivo motivoAleatorio = service.buscarMotivoAleatorioPorData(dia, mes);
         return Response.ok(mapper.toResponse(motivoAleatorio)).build();
     }
 

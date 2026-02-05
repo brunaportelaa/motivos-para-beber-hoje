@@ -42,9 +42,7 @@ public class MotivoService {
         return motivoEncontrado;
     }
 
-    public Motivo buscarMotivoAleatorioDeHoje() {
-        int dia = LocalDate.now().getDayOfMonth();
-        int mes = LocalDate.now().getMonthValue();
+    public Motivo buscarMotivoAleatorioPorData(int dia, int mes) {
         List<Motivo> motivosDeHoje = rep.listarPorData(dia, mes);
         if (!motivosDeHoje.isEmpty()){
             return motivosDeHoje.get(ThreadLocalRandom.current().nextInt(motivosDeHoje.size()));

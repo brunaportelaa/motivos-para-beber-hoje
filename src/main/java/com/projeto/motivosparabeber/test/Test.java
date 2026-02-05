@@ -36,7 +36,7 @@ public class Test {
 //        System.out.println("Servidor JAX-RS rodando em " + BASE_URI);
 //        System.out.println("Pressione Ctrl+C para encerrar...");
 
-        System.out.println(service.buscarMotivoAleatorioDeHoje());
+
 
 
 //        System.in.read();
